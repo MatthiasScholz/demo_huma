@@ -23,11 +23,11 @@ openapi:
 	open http://$(host):$(port)/docs
 
 localhost := host.docker.internal
+mock_port := 8000
 apimock:
 	$(info Requires a running service to get the OpenAPI spec. -> call 'make run' before.)
 	docker pull danielgtaylor/apisprout
 	docker run -p 8000:8000 danielgtaylor/apisprout http://$(localhost):$(port)/openapi.json
 
 apimock-test:
-	$(info FIXME incomplete example)
-	open http://$(host):8000
+	restish :$(mock_port)
