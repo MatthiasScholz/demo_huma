@@ -5,6 +5,9 @@ init:
 deps:
 	go mod tidy
 
+deps-upgrade:
+	go get -t -u ./...
+
 port := 8888
 run:
 	$(info "Starts to serve the API at port: $(port)")
@@ -16,6 +19,7 @@ test:
 host := localhost
 docs:
 	open http://$(host):$(port)/docs
+	open http://$(host):$(port)/openapi.json
 
 openapi:
 	open http://$(host):$(port)/openapi.json
@@ -31,3 +35,7 @@ apimock:
 
 apimock-test:
 	restish :$(mock_port)
+
+apimock-reload:
+	$(info Reloading the OpenAPI specification from the URL provided.)
+	restish :$(mock_port)/__reload
